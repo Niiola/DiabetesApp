@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../constants/routes.dart';
 import '../services/auth/auth_exceptions.dart';
 import '../services/auth/auth_service.dart';
@@ -60,7 +59,10 @@ class _LoginViewState extends State<LoginView> {
               keyboardType: TextInputType.emailAddress,
               enableSuggestions: false,
               autocorrect: false,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
                 hintText: 'Email',
                 prefixIcon: Icon(Icons.mail),
               ),
@@ -70,50 +72,83 @@ class _LoginViewState extends State<LoginView> {
               obscureText: true,
               enableSuggestions: false,
               autocorrect: false,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
                 hintText: 'Password',
                 prefixIcon: Icon(Icons.lock),
               ),
             ),
-            TextButton(
-                onPressed: () async {
-                  final _email = email.text;
-                  final _password = password.text;
-                  try {
-                    await AuthService.firebase().logIn(
-                      email: _email,
-                      password: _password,
-                    );
-                    final user = AuthService.firebase().currentUser;
-                    if (user?.IsEmailVerified ?? false) {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        homeRoute,
-                        (route) => false,
+            Container(
+              width: 114,
+              height: 44,
+              // decoration: BoxDecoration(
+              //   borderRadius: BorderRadius.circular(12.22),
+              //   border: Border.all(
+              //     width: 114,
+              //     color: Colors.green,
+              //   ),
+              // ),
+              child: TextButton(
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.22),
+                    ),
+                    backgroundColor: Colors.green,
+                  ),
+                  // ButtonStyle(
+                  //   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  //     RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(50.0),
+                  //     ),
+                  //   ),
+                  // ),
+                  onPressed: () async {
+                    final _email = email.text;
+                    final _password = password.text;
+                    try {
+                      await AuthService.firebase().logIn(
+                        email: _email,
+                        password: _password,
                       );
-                    } else {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        verifyEmailRoute,
-                        (route) => false,
+                      final user = AuthService.firebase().currentUser;
+                      if (user?.IsEmailVerified ?? false) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          homeRoute,
+                          (route) => false,
+                        );
+                      } else {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          verifyEmailRoute,
+                          (route) => false,
+                        );
+                      }
+                    } on UserNotFoundAuthException {
+                      await showErrorDialog(
+                        context,
+                        'User Not Found',
+                      );
+                    } on WrongPasswordAuthException {
+                      await showErrorDialog(
+                        context,
+                        'Wrong Credentias',
+                      );
+                    } on GenericAuthException {
+                      await showErrorDialog(
+                        context,
+                        "Authentication Error",
                       );
                     }
-                  } on UserNotFoundAuthException {
-                    await showErrorDialog(
-                      context,
-                      'User Not Found',
-                    );
-                  } on WrongPasswordAuthException {
-                    await showErrorDialog(
-                      context,
-                      'Wrong Credentias',
-                    );
-                  } on GenericAuthException {
-                    await showErrorDialog(
-                      context,
-                      "Authentication Error",
-                    );
-                  }
-                },
-                child: const Text('SignIn')),
+                  },
+                  child: const Text(
+                    'Sign In',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  )),
+            ),
           ],
         ),
       ),

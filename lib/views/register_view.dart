@@ -44,31 +44,53 @@ class _RegisterViewState extends State<RegisterView> {
           children: [
             const Text("Register"),
             const Text("Create New Account"),
-            TextField(
-              controller: username,
-              keyboardType: TextInputType.text,
-              enableSuggestions: false,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: 'UserName'),
-              // onChanged: (value) {
-              //   setState(() {
-              //     displayName = value;
-              //   });
-              // },
+            Container(
+              width: 282.0,
+              decoration: const BoxDecoration(
+                color: const Color(0xFFF9F8FD),
+              ),
+              child: TextField(
+                controller: username,
+                keyboardType: TextInputType.text,
+                enableSuggestions: false,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  hintText: 'UserName',
+                ),
+              ),
             ),
-            TextField(
-              controller: email,
-              keyboardType: TextInputType.emailAddress,
-              enableSuggestions: false,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: 'Email'),
+            Container(
+              width: 282.0,
+              child: TextField(
+                controller: email,
+                keyboardType: TextInputType.emailAddress,
+                enableSuggestions: false,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  hintText: 'Email',
+                ),
+              ),
             ),
-            TextField(
-              controller: password,
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: 'Password'),
+            Container(
+              width: 282.0,
+              child: TextField(
+                controller: password,
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  hintText: 'Password',
+                ),
+              ),
             ),
             TextButton(
                 onPressed: () async {

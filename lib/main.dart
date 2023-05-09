@@ -1,9 +1,13 @@
 import 'package:diabetesapp/constants/routes.dart';
 import 'package:diabetesapp/services/auth/auth_service.dart';
+import 'package:diabetesapp/views/dietPlan_view.dart';
 import 'package:diabetesapp/views/landingPage.dart';
 import 'package:diabetesapp/views/home_view.dart';
 import 'package:diabetesapp/views/login_view.dart';
+import 'package:diabetesapp/views/profile_view.dart';
+import 'package:diabetesapp/views/records_view.dart';
 import 'package:diabetesapp/views/register_view.dart';
+import 'package:diabetesapp/views/reminder_view.dart';
 import 'package:diabetesapp/views/verify_email_view.dart';
 import 'package:flutter/material.dart';
 
@@ -21,17 +25,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Diabetes App',
       home: const LogicPage(),
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFF9FAFC)
-      ),
+      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFF9FAFC)),
       routes: {
-        loginRoute:(context) => const LoginView(),
-        registerRoute:(context) => const RegisterView(),
-        homeRoute:(context) => const HomePage(),
-        verifyEmailRoute:(context) => const VerifyEmailPage(),
-
-
-
+        loginRoute: (context) => const LoginView(),
+        registerRoute: (context) => const RegisterView(),
+        homeRoute: (context) => const HomePage(),
+        verifyEmailRoute: (context) => const VerifyEmailPage(),
+        reminderRoute: (context) => const ReminderView(),
+        recordRoute: (context) => const RecordView(),
+        dietRoute: (context) => const DietPlanView(),
+        profileRoute: (context) => const ProfileView(),
       },
     );
   }
